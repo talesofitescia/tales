@@ -8,13 +8,13 @@ namespace WindowsGame1
 {
     class PositionComponent
     {
-        public Rectangle position { get; set; }
-        public Direction direction { get; set; }
+        public Rectangle Position { get; set; }
+        public Direction Direction { get; set; }
         
         public PositionComponent(int x, int y, int width, int height)
         {
-            position = new Rectangle(x, y, width, height);
-            direction = Direction.Down;
+            Position = new Rectangle(x, y, width, height);
+            Direction = Direction.Down;
         }
     }
     /*enum Direction

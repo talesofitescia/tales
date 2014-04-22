@@ -73,12 +73,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AnimatedSprite.cs" />
+    <Compile Include="AnimationNode.cs" />
+    <Compile Include="AnimationSystem.cs" />
+    <Compile Include="CollisionComponent.cs" />
+    <Compile Include="CollisionNode.cs" />
+    <Compile Include="CollisionSystem.cs" />
     <Compile Include="DisplayComponent.cs" />
     <Compile Include="Engine.cs" />
     <Compile Include="Entity.cs" />
     <Compile Include="GameMain.cs" />
     <Compile Include="InputNode.cs" />
     <Compile Include="ISystem.cs" />
+    <Compile Include="MoveNode.cs" />
+    <Compile Include="MoveSystem.cs" />
     <Compile Include="Node.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="PositionComponent.cs" />
@@ -89,6 +96,7 @@
     <Compile Include="RenderNode.cs" />
     <Compile Include="RenderSystem.cs" />
     <Compile Include="SystemList.cs" />
+    <Compile Include="VelocityComponent.cs" />
     <Compile Include="Wall.cs" />
   </ItemGroup>
   <ItemGroup>

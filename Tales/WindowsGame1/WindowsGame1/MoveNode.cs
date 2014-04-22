@@ -5,11 +5,10 @@ using System.Text;
 
 namespace WindowsGame1
 {
-    class InputNode : Node
+    class MoveNode : Node
     {
         public PositionComponent Position { get; set; }
         public CollisionComponent Collision { get; set; }
-        public VelocityComponent Velocity { get; set; }
         public DisplayComponent Display { get; set; }
     }
 }
