@@ -87,6 +87,8 @@
     <Compile Include="MoveNode.cs" />
     <Compile Include="MoveSystem.cs" />
     <Compile Include="Node.cs" />
+    <Compile Include="PatrolNode.cs" />
+    <Compile Include="PatrolSystem.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="PositionComponent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

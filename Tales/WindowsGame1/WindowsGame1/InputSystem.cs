@@ -54,11 +54,7 @@ namespace WindowsGame1
                     rectangle = new Rectangle(x + velocityX, y, width, height);
                     target.Position.Direction = Direction.Right;
                 }
-                else
-                {
-                    target.Display.Animate = false;
-                    target.Display.FrameColumns = 1;
-                }
+
                 target.Collision.Position = rectangle;
             }
         }

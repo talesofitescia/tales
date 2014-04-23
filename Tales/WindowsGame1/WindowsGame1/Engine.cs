@@ -27,12 +27,15 @@ namespace WindowsGame1
 
             renderSystem = new RenderSystem(this);
             InputSystem inputSystem = new InputSystem(this);
+            PatrolSystem patrolSystem = new PatrolSystem(this);
             CollisionSystem collisionSystem = new CollisionSystem(this);
             MoveSystem moveSystem = new MoveSystem(this);
             AnimationSystem animationSystem = new AnimationSystem(this);
 
             // Faire attention à l'ordre !!!!!!!!!!!!!
             systems.Add(inputSystem);
+            systems.Add(collisionSystem);
+            systems.Add(patrolSystem);
             systems.Add(collisionSystem);
             systems.Add(moveSystem);
             systems.Add(animationSystem);
@@ -63,7 +66,6 @@ namespace WindowsGame1
             inputNode.Position = position;
             inputNode.Collision = collision;
             inputNode.Velocity = velocity;
-            inputNode.Display = display;
             list = new List<Node>() { inputNode };
             nodesLists[inputNode.GetType()] = list;
 
@@ -108,11 +110,13 @@ namespace WindowsGame1
             nodesLists[renderNode.GetType()].Add(renderNode);
             
 
-            /*InputNode inputNode2 = new InputNode();
-            inputNode2.position = position2;
-            inputNode2.velocity = velocity2;
-            inputNode2.display = display2;
-            inputNodeList.Add(inputNode2);*/
+            PatrolNode patrolNode = new PatrolNode();
+            patrolNode.Position = position;
+            patrolNode.Collision = collision;
+            patrolNode.Velocity = velocity;
+            list = new List<Node>();
+            list.Add(patrolNode);
+            nodesLists[patrolNode.GetType()] = list;
 
             animationNode = new AnimationNode();
             animationNode.display = display;
@@ -123,10 +127,14 @@ namespace WindowsGame1
             collisionNode.Collision = collision;
             nodesLists[collisionNode.GetType()].Add(collisionNode);
 
-            
+            moveNode = new MoveNode();
+            moveNode.Position = position;
+            moveNode.Collision = collision;
+            moveNode.Display = display;
+            nodesLists[moveNode.GetType()].Add(moveNode);
 
             //Création temp méchant 2 !!!!
-            monster = new Entity();
+            /*monster = new Entity();
             position = new PositionComponent(200, 200, 25, 27);
             monster.add(position);
             display = new DisplayComponent();
@@ -153,7 +161,7 @@ namespace WindowsGame1
 
             collisionNode = new CollisionNode();
             collisionNode.Collision = collision;
-            nodesLists[collisionNode.GetType()].Add(collisionNode);
+            nodesLists[collisionNode.GetType()].Add(collisionNode);*/
         }
 
         public void addEntity(Entity e)

@@ -22,13 +22,20 @@ namespace WindowsGame1
             {
                 Rectangle col = target.Collision.Position;
                 Rectangle rect = target.Position.Position;
-
+                // Si il n'y a pas collision et demande de déplacement, on anime le personnage
                 if (!target.Collision.Collide)
                 {
                     //target.Position.Position = target.Collision.Position;
                     target.Position.Position = new Rectangle(col.X, col.Y, col.Width, col.Height);
                     target.Display.Animate = true;
                 }
+                // S'il y a collision, on n'anime pas le personnage et on met position colonne milieu
+                else
+                {
+                    target.Display.Animate = false;
+                    target.Display.FrameColumns = 1;
+                }
+                // Si il n'y a pas de demande de déplacement, on n'anime pas le personnage et ou met position colonne milieu
                 if (rect.X == col.X && rect.Y == col.Y)
                 {
                     target.Display.Animate = false;
