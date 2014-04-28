@@ -15,6 +15,9 @@ namespace WindowsGame1
         Dictionary<System.Type, List<Node>> nodesLists;
         RenderSystem renderSystem;
 
+        // Réfléchir à un système de distribution de la référence du héro joué à un instant T. Profite au moins à PatrolSystem
+        Entity hero;
+
         ContentManager Content;
         public Engine(ContentManager Content)
         {
@@ -43,6 +46,7 @@ namespace WindowsGame1
 
             //Création pikachu !!!!!!
             Entity pikachu = new Entity();
+            hero = pikachu;
             PositionComponent position = new PositionComponent(0, 0, 25, 27);
             pikachu.add(position);
             DisplayComponent display = new DisplayComponent();
@@ -97,23 +101,31 @@ namespace WindowsGame1
             display.Effect = SpriteEffects.None;
             monster.add(display);
             velocity = new VelocityComponent();
-            velocity.velocityX = 2;
-            velocity.velocityY = 2;
+            velocity.velocityX = 1;
+            velocity.velocityY = 1;
             monster.add(velocity);
             collision = new CollisionComponent();
             collision.Position = new Rectangle(100, 200, 25, 27);
             monster.add(collision);
+            PatrolComponent patrol = new PatrolComponent();
+            patrol.MaxOffset = 40;
+            monster.add(patrol);
+            RangeOfViewComponent range = new RangeOfViewComponent();
+            range.Range = 50;
+            monster.add(range);
             //Création Nodes en rapport au méchant !!!!!
             renderNode = new RenderNode();
             renderNode.position = position;
             renderNode.display = display;
             nodesLists[renderNode.GetType()].Add(renderNode);
             
-
             PatrolNode patrolNode = new PatrolNode();
             patrolNode.Position = position;
             patrolNode.Collision = collision;
             patrolNode.Velocity = velocity;
+            patrolNode.Patrol = patrol;
+            patrolNode.Range = range;
+
             list = new List<Node>();
             list.Add(patrolNode);
             nodesLists[patrolNode.GetType()] = list;
@@ -176,6 +188,17 @@ namespace WindowsGame1
         public void removeEntity(Entity e)
         {
             entities.Remove(e);
+        }
+
+        // Ne pas oublier de re réfléchir à un moyen propre de distribuer la réf du héro
+        public Entity getHero()
+        {
+            return hero;
+        }
+
+        public void setHero(Entity hero)
+        {
+            this.hero = hero;
         }
 
         public void addSystem(ISystem s, int priority)

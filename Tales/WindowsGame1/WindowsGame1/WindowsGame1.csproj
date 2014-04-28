@@ -75,6 +75,9 @@
     <Compile Include="AnimatedSprite.cs" />
     <Compile Include="AnimationNode.cs" />
     <Compile Include="AnimationSystem.cs" />
+    <Compile Include="Archetype.cs" />
+    <Compile Include="AttackNode.cs" />
+    <Compile Include="AttackSystem.cs" />
     <Compile Include="CollisionComponent.cs" />
     <Compile Include="CollisionNode.cs" />
     <Compile Include="CollisionSystem.cs" />
@@ -87,14 +90,17 @@
     <Compile Include="MoveNode.cs" />
     <Compile Include="MoveSystem.cs" />
     <Compile Include="Node.cs" />
+    <Compile Include="PatrolComponent.cs" />
     <Compile Include="PatrolNode.cs" />
     <Compile Include="PatrolSystem.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="PositionComponent.cs" />
+    <Compile Include="ProcessSystem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="InputSystem.cs" />
+    <Compile Include="RangeOfViewComponent.cs" />
     <Compile Include="RenderNode.cs" />
     <Compile Include="RenderSystem.cs" />
     <Compile Include="SystemList.cs" />
