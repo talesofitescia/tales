@@ -28,6 +28,7 @@ namespace WindowsGame1
             systems = new SystemList();
             nodesLists = new Dictionary<Type, List<Node>>();
 
+            // Initialisation des systèmes
             renderSystem = new RenderSystem(this);
             InputSystem inputSystem = new InputSystem(this);
             PatrolSystem patrolSystem = new PatrolSystem(this);
@@ -44,145 +45,36 @@ namespace WindowsGame1
             systems.Add(animationSystem);
             //systems.Add(renderSystem);
 
-            //Création pikachu !!!!!!
-            Entity pikachu = new Entity();
-            hero = pikachu;
-            PositionComponent position = new PositionComponent(0, 0, 25, 27);
-            pikachu.add(position);
-            DisplayComponent display = new DisplayComponent();
-            display.Texture = Content.Load<Texture2D>("pikachu");
-            display.Effect = SpriteEffects.None;
-            pikachu.add(display);
-            VelocityComponent velocity = new VelocityComponent();
-            velocity.velocityX = 2;
-            velocity.velocityY = 2;
-            pikachu.add(velocity);
-            CollisionComponent collision = new CollisionComponent();
-            pikachu.add(collision);
-            //Création Nodes en rapport à pikachu !!!!!
-            RenderNode renderNode = new RenderNode();
-            renderNode.position = position;
-            renderNode.display = display;
-            List<Node> list = new List<Node>() { renderNode };
-            nodesLists[renderNode.GetType()] = list;
+            // Création des listes de noeuds de nodeLists
+            nodesLists[new AnimationNode().GetType()] = new List<Node>();
+            nodesLists[new CollisionNode().GetType()] = new List<Node>();
+            nodesLists[new InputNode().GetType()] = new List<Node>();
+            nodesLists[new MoveNode().GetType()] = new List<Node>();
+            nodesLists[new PatrolNode().GetType()] = new List<Node>();
 
-            InputNode inputNode = new InputNode();
-            inputNode.Position = position;
-            inputNode.Collision = collision;
-            inputNode.Velocity = velocity;
-            list = new List<Node>() { inputNode };
-            nodesLists[inputNode.GetType()] = list;
 
-            AnimationNode animationNode = new AnimationNode();
-            animationNode.display = display;
-            animationNode.position = position;
-            list = new List<Node>() { animationNode };
-            nodesLists[animationNode.GetType()] = list;
-
-            CollisionNode collisionNode = new CollisionNode();
-            collisionNode.Collision = collision;
-            list = new List<Node>() { collisionNode };
-            nodesLists[collisionNode.GetType()] = list;
-
-            MoveNode moveNode = new MoveNode();
-            moveNode.Position = position;
-            moveNode.Collision = collision;
-            moveNode.Display = display;
-            list = new List<Node>() { moveNode };
-            nodesLists[moveNode.GetType()] = list;
+            // Trouver moyen de pouvoir avoir une classe Archetype rempli de methodes statiques !
+            Archetype entityFabric = new Archetype(Content);
             
+            //Création pikachu !!!!!!
+            Entity pikachu = entityFabric.createPikachu();
+            hero = pikachu;
+            addEntity(pikachu);
 
             //Création temp méchant !!!!
-            Entity monster = new Entity();
-            position = new PositionComponent(100, 200, 25, 27);
-            monster.add(position);
-            display = new DisplayComponent();
-            display.Texture = Content.Load<Texture2D>("mechant_test");
-            display.Effect = SpriteEffects.None;
-            monster.add(display);
-            velocity = new VelocityComponent();
-            velocity.velocityX = 1;
-            velocity.velocityY = 1;
-            monster.add(velocity);
-            collision = new CollisionComponent();
-            collision.Position = new Rectangle(100, 200, 25, 27);
-            monster.add(collision);
-            PatrolComponent patrol = new PatrolComponent();
-            patrol.MaxOffset = 40;
-            monster.add(patrol);
-            RangeOfViewComponent range = new RangeOfViewComponent();
-            range.Range = 50;
-            monster.add(range);
-            //Création Nodes en rapport au méchant !!!!!
-            renderNode = new RenderNode();
-            renderNode.position = position;
-            renderNode.display = display;
-            nodesLists[renderNode.GetType()].Add(renderNode);
-            
-            PatrolNode patrolNode = new PatrolNode();
-            patrolNode.Position = position;
-            patrolNode.Collision = collision;
-            patrolNode.Velocity = velocity;
-            patrolNode.Patrol = patrol;
-            patrolNode.Range = range;
+            Entity monster = entityFabric.createMonster(200, 200);
+            addEntity(monster);
 
-            list = new List<Node>();
-            list.Add(patrolNode);
-            nodesLists[patrolNode.GetType()] = list;
+            monster = entityFabric.createMonster(100, 100);
+            addEntity(monster);
 
-            animationNode = new AnimationNode();
-            animationNode.display = display;
-            animationNode.position = position;
-            nodesLists[animationNode.GetType()].Add(animationNode);
-
-            collisionNode = new CollisionNode();
-            collisionNode.Collision = collision;
-            nodesLists[collisionNode.GetType()].Add(collisionNode);
-
-            moveNode = new MoveNode();
-            moveNode.Position = position;
-            moveNode.Collision = collision;
-            moveNode.Display = display;
-            nodesLists[moveNode.GetType()].Add(moveNode);
-
-            //Création temp méchant 2 !!!!
-            /*monster = new Entity();
-            position = new PositionComponent(200, 200, 25, 27);
-            monster.add(position);
-            display = new DisplayComponent();
-            display.Texture = Content.Load<Texture2D>("mechant_test");
-            display.Effect = SpriteEffects.None;
-            monster.add(display);
-            velocity = new VelocityComponent();
-            velocity.velocityX = 2;
-            velocity.velocityY = 2;
-            monster.add(velocity);
-            collision = new CollisionComponent();
-            collision.Position = new Rectangle(200, 200, 25, 27);
-            monster.add(collision);
-            //Création Nodes en rapport au méchant !!!!!
-            renderNode = new RenderNode();
-            renderNode.position = position;
-            renderNode.display = display;
-            nodesLists[renderNode.GetType()].Add(renderNode);
-
-            animationNode = new AnimationNode();
-            animationNode.display = display;
-            animationNode.position = position;
-            nodesLists[animationNode.GetType()].Add(animationNode);
-
-            collisionNode = new CollisionNode();
-            collisionNode.Collision = collision;
-            nodesLists[collisionNode.GetType()].Add(collisionNode);*/
+            monster = entityFabric.createMonster(300, 300);
+            addEntity(monster);
         }
 
         public void addEntity(Entity e)
         {
             entities.Add(e);
-            foreach (Systems s in e.nodeCreatList)
-            {
-
-            }
         }
 
         public void removeEntity(Entity e)
@@ -212,6 +104,64 @@ namespace WindowsGame1
         }
         public List<Node> getNodeList(Type nodeClass)
         {
+            List<Node> list = new List<Node>();
+            foreach (Entity entity in entities)
+            {
+                if (entity.ProcessSystemSet.Contains(nodeClass))
+                {
+                    if (nodeClass == new AnimationNode().GetType())
+                    {
+                        AnimationNode animationNode = new AnimationNode();
+                        animationNode.display = (DisplayComponent) entity.get(new DisplayComponent().GetType());
+                        animationNode.position = (PositionComponent) entity.get(new PositionComponent(0, 0, 0, 0).GetType());
+                        list.Add(animationNode);
+                    }
+                    else if (nodeClass == new AttackNode().GetType())
+                    {
+                        
+                    }
+                    else if (nodeClass == new CollisionNode().GetType())
+                    {
+                        CollisionNode collisionNode = new CollisionNode();
+                        collisionNode.Collision = (CollisionComponent) entity.get(new CollisionComponent().GetType());
+                        list.Add(collisionNode);
+                    }
+                    else if (nodeClass == new InputNode().GetType())
+                    {
+                        InputNode inputNode = new InputNode();
+                        inputNode.Position = (PositionComponent) entity.get(new PositionComponent(0, 0, 0, 0).GetType());
+                        inputNode.Collision = (CollisionComponent) entity.get(new CollisionComponent().GetType());
+                        inputNode.Velocity = (VelocityComponent) entity.get(new VelocityComponent().GetType());
+                        list.Add(inputNode);
+                    }
+                    else if (nodeClass == new MoveNode().GetType())
+                    {
+                        MoveNode moveNode = new MoveNode();
+                        moveNode.Position = (PositionComponent) entity.get(new PositionComponent(0, 0, 0, 0).GetType());
+                        moveNode.Collision = (CollisionComponent) entity.get(new CollisionComponent().GetType());
+                        moveNode.Display = (DisplayComponent) entity.get(new DisplayComponent().GetType());
+                        list.Add(moveNode);
+                    }
+                    else if (nodeClass == new PatrolNode().GetType())
+                    {
+                        PatrolNode patrolNode = new PatrolNode();
+                        patrolNode.Position = (PositionComponent) entity.get(new PositionComponent(0, 0, 0, 0).GetType());
+                        patrolNode.Collision = (CollisionComponent) entity.get(new CollisionComponent().GetType());
+                        patrolNode.Velocity = (VelocityComponent) entity.get(new VelocityComponent().GetType());
+                        patrolNode.Patrol = (PatrolComponent) entity.get(new PatrolComponent().GetType());
+                        patrolNode.Range = (RangeOfViewComponent) entity.get(new RangeOfViewComponent().GetType());
+                        list.Add(patrolNode);
+                    }
+                    else if (nodeClass == new RenderNode().GetType())
+                    {
+                        RenderNode renderNode = new RenderNode();
+                        renderNode.position = (PositionComponent)entity.get(new PositionComponent(0, 0, 0, 0).GetType());
+                        renderNode.display = (DisplayComponent)entity.get(new DisplayComponent().GetType());
+                        list.Add(renderNode);
+                    }
+                }
+                nodesLists[nodeClass] = list;
+            }
             return nodesLists[nodeClass];
         }
 

@@ -19,20 +19,20 @@ namespace WindowsGame1
         {
             targets = engine.getNodeList(new PatrolNode().GetType()).Cast<PatrolNode>().ToList();
 
-            Rectangle pos;
             // Représente un rectange dont la surface représente la porté d'une entité
-            Rectangle vRange;
-            int range;
             foreach (PatrolNode target in targets)
             {
                 //On regarde si un gentil est dans le range du méchant
-                range = target.Range.Range;
-                pos = target.Position.Position;
-                vRange = new Rectangle(pos.X - range, pos.Y - range, 2 * range + pos.Width, 2 * range + pos.Height);
+
+
+                int range = target.Range.Range;
+                Rectangle pos = target.Position.Position;
+                Rectangle vRange = new Rectangle(pos.X - range, pos.Y - range, 2 * range + pos.Width, 2 * range + pos.Height);
                 PositionComponent heroPosition = (PositionComponent) engine.getHero().get(new PositionComponent(0, 0, 0, 0).GetType());
                 if (vRange.Intersects(heroPosition.Position))
                 {
-                    break;
+
+                    continue;
                 }
                 
                 target.Collision.Collide = false;

@@ -6,31 +6,31 @@ using System.Threading.Tasks;
 
 namespace ConsoleApplication1
 {
-    class MaList : List<List<Object>>
+    class Toto
     {
-
-        public void Add(List<Object> l)
-        {
-            base.Add(l);
-        }
-
-        public bool Remove(List<Object> l)
-        {
-            return base.Remove(l);
-        }
-
     }
     class Program
     {
         static void Main(string[] args)
         {
-            MaList list = new MaList();
-            list.Add(new List<Object>());
-            list.Add(new List<Object>());
-            list.Remove(new List<Object>());
-            foreach (List<Object> o in list)
+            HashSet<Type> tests = new HashSet<Type>();
+            //List<Type> tests = new List<Type>();
+            tests.Add(new Toto().GetType());
+            tests.Add(new Toto().GetType());
+            foreach (Type type in tests)
             {
-                Console.WriteLine(o);
+                Console.WriteLine(type);
+            }
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+
+            
+
+            //tests.Remove(new Toto().GetType());
+            foreach (Type type in tests)
+            {
+                Console.WriteLine(type);
             }
         }
     }
