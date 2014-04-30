@@ -8,12 +8,10 @@ namespace WindowsGame1
     class Entity
     {
         Dictionary<Type, Object> components;
-        public HashSet<Type> ProcessSystemSet { get; set; }
 
         public Entity()
         {
             components = new Dictionary<Type, Object>();
-            ProcessSystemSet = new HashSet<Type>();
         }
 
         public void add(Object component)

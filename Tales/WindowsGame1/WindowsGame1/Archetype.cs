@@ -15,10 +15,19 @@ namespace WindowsGame1
         {
             this.Content = Content;
         }
-        public Entity createPikachu()
+        public Entity createPikachu(int x, int y)
         {
             Entity pikachu = new Entity();
-            PositionComponent position = new PositionComponent(0, 0, 25, 27);
+            ProcessSystemComponent processSystem = new ProcessSystemComponent();
+            processSystem.ProcessSystemSet.Add(new RenderNode().GetType());
+            processSystem.ProcessSystemSet.Add(new InputNode().GetType());
+            processSystem.ProcessSystemSet.Add(new AnimationNode().GetType());
+            processSystem.ProcessSystemSet.Add(new CollisionNode().GetType());
+            processSystem.ProcessSystemSet.Add(new MoveNode().GetType());
+            pikachu.add(processSystem);
+
+
+            PositionComponent position = new PositionComponent(x, y, 25, 27);
             pikachu.add(position);
             DisplayComponent display = new DisplayComponent();
             display.Texture = Content.Load<Texture2D>("pikachu");
@@ -31,11 +40,7 @@ namespace WindowsGame1
             CollisionComponent collision = new CollisionComponent();
             pikachu.add(collision);
 
-            pikachu.ProcessSystemSet.Add(new RenderNode().GetType());
-            pikachu.ProcessSystemSet.Add(new InputNode().GetType());
-            pikachu.ProcessSystemSet.Add(new AnimationNode().GetType());
-            pikachu.ProcessSystemSet.Add(new CollisionNode().GetType());
-            pikachu.ProcessSystemSet.Add(new MoveNode().GetType());
+            
 
             return pikachu;
         }
@@ -43,6 +48,14 @@ namespace WindowsGame1
         public Entity createMonster(int x, int y)
         {
             Entity monster = new Entity();
+            ProcessSystemComponent processSystem = new ProcessSystemComponent();
+            processSystem.ProcessSystemSet.Add(new RenderNode().GetType());
+            processSystem.ProcessSystemSet.Add(new PatrolNode().GetType());
+            processSystem.ProcessSystemSet.Add(new AnimationNode().GetType());
+            processSystem.ProcessSystemSet.Add(new CollisionNode().GetType());
+            processSystem.ProcessSystemSet.Add(new MoveNode().GetType());
+            monster.add(processSystem);
+            
             PositionComponent position = new PositionComponent(x, y, 25, 27);
             monster.add(position);
             DisplayComponent display = new DisplayComponent();
@@ -64,11 +77,7 @@ namespace WindowsGame1
             monster.add(range);
 
 
-            monster.ProcessSystemSet.Add(new RenderNode().GetType());
-            monster.ProcessSystemSet.Add(new PatrolNode().GetType());
-            monster.ProcessSystemSet.Add(new AnimationNode().GetType());
-            monster.ProcessSystemSet.Add(new CollisionNode().GetType());
-            monster.ProcessSystemSet.Add(new MoveNode().GetType());
+            
 
             return monster;
         }

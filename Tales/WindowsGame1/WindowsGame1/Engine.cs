@@ -57,9 +57,10 @@ namespace WindowsGame1
             Archetype entityFabric = new Archetype(Content);
             
             //Création pikachu !!!!!!
-            Entity pikachu = entityFabric.createPikachu();
+            Entity pikachu = entityFabric.createPikachu(0, 0);
             hero = pikachu;
             addEntity(pikachu);
+
 
             //Création temp méchant !!!!
             Entity monster = entityFabric.createMonster(200, 200);
@@ -69,6 +70,10 @@ namespace WindowsGame1
             addEntity(monster);
 
             monster = entityFabric.createMonster(300, 300);
+            addEntity(monster);
+
+
+            monster = entityFabric.createMonster(400, 400);
             addEntity(monster);
         }
 
@@ -107,7 +112,16 @@ namespace WindowsGame1
             List<Node> list = new List<Node>();
             foreach (Entity entity in entities)
             {
-                if (entity.ProcessSystemSet.Contains(nodeClass))
+                ProcessSystemComponent processSystem;
+                try
+                {
+                    processSystem = (ProcessSystemComponent) entity.get(new ProcessSystemComponent().GetType());
+                }
+                catch
+                {
+                    throw new NoProcessSystemInEntityException();
+                }
+                if (processSystem.ProcessSystemSet.Contains(nodeClass))
                 {
                     if (nodeClass == new AnimationNode().GetType())
                     {
@@ -177,5 +191,11 @@ namespace WindowsGame1
         {
             renderSystem.update(spriteBatch);
         }
+    }
+
+
+    class NoProcessSystemInEntityException : Exception
+    {
+
     }
 }

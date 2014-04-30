@@ -95,7 +95,7 @@
     <Compile Include="PatrolSystem.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="PositionComponent.cs" />
-    <Compile Include="ProcessSystem.cs" />
+    <Compile Include="ProcessSystemComponent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Game1.cs" />

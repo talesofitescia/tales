@@ -31,7 +31,6 @@ namespace WindowsGame1
                 PositionComponent heroPosition = (PositionComponent) engine.getHero().get(new PositionComponent(0, 0, 0, 0).GetType());
                 if (vRange.Intersects(heroPosition.Position))
                 {
-
                     continue;
                 }
                 
