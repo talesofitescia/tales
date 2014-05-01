@@ -21,6 +21,9 @@ namespace WindowsGame1
         SpriteBatch spriteBatch;
 
         Engine engine;
+
+        Camera2d _camera;
+        Texture2D mBackgroundTexture;
         
         //Player player;
         //List<Wall> walls;
@@ -61,8 +64,37 @@ namespace WindowsGame1
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             // TODO: use this.Content to load your game content here
+            mBackgroundTexture = Content.Load<Texture2D>("gta_map2");
+            _camera = new Camera2d(mBackgroundTexture.Width, mBackgroundTexture.Height, GraphicsDevice);
             //Player.LoadContent(Content);
             //Wall.LoadContent(Content);
+        }
+
+        private void CameraMouvement(Entity entity)
+        {
+            /*
+            // Les flèches pour le déplacement
+            KeyboardState keyboardState = Keyboard.GetState();
+            Vector2 movement = Vector2.Zero;
+            if (keyboardState.IsKeyDown(Keys.Left))
+                movement.X--;
+            if (keyboardState.IsKeyDown(Keys.Right))
+                movement.X++;
+            if (keyboardState.IsKeyDown(Keys.Up))
+                movement.Y--;
+            if (keyboardState.IsKeyDown(Keys.Down))
+                movement.Y++;
+            _camera.Pos += movement * 20;
+            //PageDown et PageUp pour le zoom
+            if (keyboardState.IsKeyDown(Keys.PageDown))
+                _camera.Zoom -= 0.05f;
+            if (keyboardState.IsKeyDown(Keys.PageUp))
+                _camera.Zoom += 0.05f;
+             */
+            PositionComponent position = (PositionComponent) entity.get(new PositionComponent(0, 0, 0, 0).GetType());
+            float x = position.Position.X;
+            float y = position.Position.Y;
+            _camera.Pos = new Vector2(x, y);
         }
 
         /// <summary>
@@ -103,7 +135,7 @@ namespace WindowsGame1
                 clickDown = false;
             }*/
 
-
+            CameraMouvement(engine.getHero());
             engine.update(gameTime);
 
             base.Update(gameTime);
@@ -118,13 +150,26 @@ namespace WindowsGame1
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
-            spriteBatch.Begin();
+            //spriteBatch.Begin();
             
             /*foreach (Wall w in walls)
             {
                 w.Draw(spriteBatch);
             }
             player.Draw(spriteBatch);*/
+            
+            
+            
+            //engine.Draw(spriteBatch);
+            //spriteBatch.End();
+            //base.Draw(gameTime);
+
+
+            GraphicsDevice.Clear(Color.Black);
+            spriteBatch.Begin(SpriteSortMode.Immediate,
+                BlendState.AlphaBlend, SamplerState.PointClamp,
+                null, null, null, _camera.GetTransformation());
+            spriteBatch.Draw(mBackgroundTexture, Vector2.Zero, mBackgroundTexture.Bounds, Color.White);
             engine.Draw(spriteBatch);
             spriteBatch.End();
             base.Draw(gameTime);

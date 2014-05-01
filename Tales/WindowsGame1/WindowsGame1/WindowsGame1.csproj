@@ -78,6 +78,7 @@
     <Compile Include="Archetype.cs" />
     <Compile Include="AttackNode.cs" />
     <Compile Include="AttackSystem.cs" />
+    <Compile Include="Camera2d.cs" />
     <Compile Include="CollisionComponent.cs" />
     <Compile Include="CollisionNode.cs" />
     <Compile Include="CollisionSystem.cs" />
